@@ -41,21 +41,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateFirmware = void 0;
 var common_api_1 = require("@addo/common-api");
-var adm_zip_1 = __importDefault(require("adm-zip"));
 var fs_1 = __importDefault(require("fs"));
+var child_process_1 = require("child_process");
 var config_json_1 = __importDefault(require("../config.json"));
 exports.updateFirmware = new common_api_1.ExpressJsMicroservice({ method: 'post', route: '/update-firmware' }, function (http) { return __awaiter(void 0, void 0, void 0, function () {
-    var path, zip, error_1;
+    var result, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, uploadFile(http)];
+                return [4 /*yield*/, execCommand("cd /home/addo/addo-totem && git pull origin master")];
             case 1:
-                path = _a.sent();
-                zip = new adm_zip_1.default(path);
-                zip.extractAllTo(config_json_1.default.base.path, true);
-                return [2 /*return*/, Promise.resolve(new common_api_1.Response({ status: 'OK' }, 200))];
+                result = _a.sent();
+                return [2 /*return*/, Promise.resolve(new common_api_1.Response({ status: 'OK', result: result }, 200))];
             case 2:
                 error_1 = _a.sent();
                 return [2 /*return*/, Promise.reject(error_1)];
@@ -89,5 +87,26 @@ function uploadFile(http) {
         catch (error) {
             reject(error);
         }
+    });
+}
+function execCommand(command) {
+    return new Promise(function (resolve, reject) {
+        var child_process = child_process_1.exec(command, function (error, stdout, stderr) {
+            if (error) {
+                console.log("error: " + error.message);
+                reject(error);
+                return;
+            }
+            if (stderr) {
+                console.log("stderr: " + stderr);
+                reject(stderr);
+                return;
+            }
+            console.log("stdout: " + stdout);
+            resolve(stdout);
+        });
+        child_process.stdout.on('data', function (data) {
+            console.log(data.toString());
+        });
     });
 }
