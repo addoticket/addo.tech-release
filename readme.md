@@ -6,7 +6,7 @@
     sudo apt update
     sudo apt install curl unclutter
     ```
-2. Install NodeJS
+2. Install **NodeJS**
     ```
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
     sudo apt install nodejs
