@@ -12,4 +12,5 @@ sudo chmod +x /home/addo/addo-totem/start.sh
 sudo chmod +x /home/addo/addo-totem/startup.sh
 sudo cp /home/addo/addo-totem/start.sh.desktop ~/.config/autostart
 sudo cp /home/addo/addo-totem/startup.sh.desktop ~/.config/autostart
+sudo cp /home/addo/addo-totem/libautoreplyprint.so /usr/local/lib
 sudo reboot
