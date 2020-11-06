@@ -37,6 +37,11 @@
     sudo cp /home/addo/addo-totem/start.sh.desktop ~/.config/autostart
     sudo cp /home/addo/addo-totem/startup.sh.desktop ~/.config/autostart
     ```
+8. Copy printer library **libautoreplyprint.so** in **/usr/local/lib** 
+    (you can find it in root of repository)
+    ```
+    sudo cp /home/addo/addo-totem/libautoreplyprint.so /usr/local/lib
+    ```
 
 # Automation
 You can run this script after install Ubuntu Mate
