@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/addo/addo-totem/startup.sh
+Hidden=false
+X-MATE-Autostart-enabled=true
+Name[en_US]=/home/addo/addo-totem/startup.sh
+Name=/home/addo/addo-totem/startup.sh
+Comment[en_US]=
+Comment=

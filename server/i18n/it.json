@@ -1,0 +1,55 @@
+{
+    "Common": {
+        "help": "AIUTO",
+        "back": "indietro",
+        "or": "o",
+        "Date": {
+            "date": "dd/MM/yyyy",
+            "datetime": "dd/MM/yyyy HH:mm",
+            "moment_datetime": "DD/MM/yyyy HH:mm"
+        }
+    },
+    "Errors": {
+        "_NO_INTERNET_CONNECTION": "Nessuna connessione alla rete. <br> Recati in cassa o ad un altro totem",
+        "_ORDER_ALREADY_PRINTED": "Ordine già stampato",
+        "_ORDER_ALREADY_PRINTER": "Ordine già stampato",
+        "_ORDER_NOT_FOUND": "Inserisci un codice valido",
+        "_VALIDATE_ORDER_ERROR": "Codice errato",
+        "_CANT_PRINT": "Stampante fuori uso! <br> Recati in cassa o ad un altro totem"
+    },
+    "print_success": "Grazie! <br> Consegna la tua drink al bar.",
+    "HomePage": {
+        "info":"Scansiona il tuo QR Code",
+        "scan_qr": "Scansiona<br> il tuo codice QR",
+        "manual_validation": "Valida manualmente"
+    },
+    "SettingsPage": {
+        "title": "Impostazioni",
+        "wifi": "Inpostazioni WI-FI",
+        "wifi_subtitle": "In questa sezione potrai collegarti alla rete WiFi più adatta alle tue esigenze",
+        "account": "Impostazioni account",
+        "account_subtitle": "In questa sezione potrai personalizzare le impostazioni relative al dispositivo"
+    },
+    "ConfirmOrderPage": {
+        "table": {
+            "id": "#",
+            "row": {
+                "name": "Prodotto",
+                "qta": "Q.tà",
+                "price": "Prezzo"
+            },
+            "total": "Totale"
+        },
+        "print": "Stampa",
+        "scan_to_print": "Scannerizza nuovamente il QRcode per avviare la stampa",
+        "order_not_valid": "L'ordine è stato già stampato il "
+    },
+    "ValidateOrderCode": {
+        "backspace": "cancella",
+        "validate": "Conferma",
+        "code_placeholder": "- - - - - -"
+    },
+    "Printer": {
+        "bought_at": "Acquistato alle"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "old_versions": {
+        "path": "/old_versions"
+    },
+    "base": {
+        "path": "/home/addo/addo-totem"
+    },
+    "server": {
+        "path": "/server"
+    },
+    "client": {
+        "path": "/client"
+    },
+    "electron": {
+        "path": "/electron"
+    }
+}

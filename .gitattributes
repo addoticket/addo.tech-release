@@ -1,0 +1,2 @@
+#./server/* filter=lfs diff=lfs merge=lfs -text
+electron/addo-totem filter=lfs diff=lfs merge=lfs -text
