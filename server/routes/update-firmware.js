@@ -50,7 +50,7 @@ exports.updateFirmware = new common_api_1.ExpressJsMicroservice({ method: 'post'
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, execCommand("cd /home/addo/addo-totem && git pull origin master")];
+                return [4 /*yield*/, execCommand("cd /home/addo/addo-totem && git reset --hard HEAD && git pull origin master")];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, Promise.resolve(new common_api_1.Response({ status: 'OK', result: result }, 200))];
