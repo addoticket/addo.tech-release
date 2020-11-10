@@ -14,6 +14,8 @@ sudo pm2 startup
 sudo pm2 save
 sudo chmod +x /home/addo/addo-totem/start.sh
 sudo chmod +x /home/addo/addo-totem/startup.sh
+sudo chmod +x /home/addo/addo-totem/update-scripts/pre-update.sh
+sudo chmod +x /home/addo/addo-totem/update-scripts/post-update.sh
 sudo mkdir ~/.config/autostart
 sudo cp /home/addo/addo-totem/start.sh.desktop ~/.config/autostart
 sudo cp /home/addo/addo-totem/startup.sh.desktop ~/.config/autostart
