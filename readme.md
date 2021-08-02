@@ -18,7 +18,7 @@
     ```
 4. Clone the repository **"https://github.com/addoeventi/addo.tech-release.git"** in root folder
     ```
-    sudo git clone https://github.com/addoeventi/addo.tech-release.git /home/addo/
+    sudo git lfs clone https://github.com/addoeventi/addo.tech-release.git /home/addo/
     ````
 5. Install **PM2** 
     ```
