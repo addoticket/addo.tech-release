@@ -54,7 +54,7 @@ sudo ufw allow ssh
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 sudo apt install nodejs git git-lfs -y
-sudo git clone https://github.com/addoeventi/addo.tech-release.git /home/addo/addo-totem
+sudo git lsf clone https://github.com/addoeventi/addo.tech-release.git /home/addo/addo-totem
 sudo cp /home/addo/addo-totem/libautoreplyprint.so /usr/local/lib
 sudo npm i -g pm2
 sudo pm2 start /home/addo/addo-totem/server/index.js --name="Addo Totem API"
