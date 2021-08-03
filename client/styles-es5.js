@@ -526,11 +526,11 @@
     /***/
     function _(module, exports, __webpack_require__) {
       __webpack_require__(
-      /*! /home/addo/addo/addo.hyper-tech/client/src/theme/variables.scss */
+      /*! /home/addo/addo-totem-repository/client/src/theme/variables.scss */
       "./src/theme/variables.scss");
 
       module.exports = __webpack_require__(
-      /*! /home/addo/addo/addo.hyper-tech/client/src/global.scss */
+      /*! /home/addo/addo-totem-repository/client/src/global.scss */
       "./src/global.scss");
       /***/
     }

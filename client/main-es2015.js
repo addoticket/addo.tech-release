@@ -529,10 +529,17 @@ let AppComponent = class AppComponent {
                     this.success_component.hide();
                 }, 3000);
                 console.log(res);
-            }, err => {
+            }, (err) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
                 loading.dismiss();
                 console.log("PRINTER ERROR", err);
-            });
+                _services_global__WEBPACK_IMPORTED_MODULE_5__["Global"].validationError.emit(err);
+                this.errorMessage = err.error.code;
+                yield loading.dismiss();
+                this.error_component.show();
+                setTimeout(() => {
+                    this.error_component.hide();
+                }, 3000);
+            }));
             // this.ordersService.validateOrderByCode(code)
             //   .subscribe(async (res: any) => {
             //     if (res) {
@@ -2466,12 +2473,14 @@ let PrinterService = class PrinterService {
                     let ticket = {
                         date: i18nDatePipe.transform(order.event.from, 'EEE dd MMM'),
                         location: order.event.location,
+                        event_title: order.event.title,
                         product_name: r.name,
                         price: r.price / Math.pow(10, _pipes_currency_symbol_pipe__WEBPACK_IMPORTED_MODULE_4__["CURRENCY"][(order.movement.currency || 'none').toUpperCase()].decimal_digits || 2),
                         currency: currencySymbolPipe.transform(order.movement.currency) || '€',
-                        printed: i18nDatePipe.transform(order.created, `\'${this.translate.instant("Printer.bought_at")}\' HH:mm`),
+                        printed: i18nDatePipe.transform(order.created, `\'${this.translate.instant("Printer.bought_at")}\'dd/MM/YY HH:mm`),
                         watermark: order.watermark || "AddoAddoAddoAddo",
-                        rotateWatermark: true
+                        rotateWatermark: true,
+                        info: `Voucher valido per il ritiro al bancone. Recati dal barman per ordinare l'articolo acquistato. Coupon valido fino al ${i18nDatePipe.transform(order.event.to, 'dd/MM/YY \'alle\' HH:mm')}. Una volta stampato il vaucher non potrà essere più rimborsato.`
                     };
                     tickets.push({ ticket, clear: current == total });
                 }
@@ -2580,7 +2589,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/addo/addo/addo.hyper-tech/client/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /home/addo/addo-totem-repository/client/src/main.ts */"./src/main.ts");
 
 
 /***/ })

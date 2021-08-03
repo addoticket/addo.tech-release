@@ -555,41 +555,41 @@
         }, {
           key: "validate",
           value: function validate(code) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               var _this3 = this;
 
               var loading, canPrint, err;
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
                       if (!(_services_global__WEBPACK_IMPORTED_MODULE_5__["Global"].CONNECTION_STATUS == 1
                       /* OFFLINE */
                       )) {
-                        _context3.next = 3;
+                        _context4.next = 3;
                         break;
                       }
 
                       this.error_component.show(0, "Errors._NO_INTERNET_CONNECTION");
-                      return _context3.abrupt("return");
+                      return _context4.abrupt("return");
 
                     case 3:
-                      _context3.next = 5;
+                      _context4.next = 5;
                       return this.loadingCtrl.create({
                         message: "loading..."
                       });
 
                     case 5:
-                      loading = _context3.sent;
+                      loading = _context4.sent;
                       loading.present();
-                      _context3.next = 9;
+                      _context4.next = 9;
                       return this.printerService.canPrint();
 
                     case 9:
-                      canPrint = _context3.sent;
+                      canPrint = _context4.sent;
 
                       if (canPrint) {
-                        _context3.next = 19;
+                        _context4.next = 19;
                         break;
                       }
 
@@ -602,7 +602,7 @@
                       _services_global__WEBPACK_IMPORTED_MODULE_5__["Global"].validationError.emit(err);
 
                       this.errorMessage = err.error.code;
-                      _context3.next = 16;
+                      _context4.next = 16;
                       return loading.dismiss();
 
                     case 16:
@@ -610,7 +610,7 @@
                       setTimeout(function () {
                         _this3.error_component.hide();
                       }, 3000);
-                      return _context3.abrupt("return");
+                      return _context4.abrupt("return");
 
                     case 19:
                       this.ordersService.validateAndPrint(code).subscribe(function (res) {
@@ -623,8 +623,35 @@
                         }, 3000);
                         console.log(res);
                       }, function (err) {
-                        loading.dismiss();
-                        console.log("PRINTER ERROR", err);
+                        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+                          var _this4 = this;
+
+                          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                            while (1) {
+                              switch (_context3.prev = _context3.next) {
+                                case 0:
+                                  loading.dismiss();
+                                  console.log("PRINTER ERROR", err);
+
+                                  _services_global__WEBPACK_IMPORTED_MODULE_5__["Global"].validationError.emit(err);
+
+                                  this.errorMessage = err.error.code;
+                                  _context3.next = 6;
+                                  return loading.dismiss();
+
+                                case 6:
+                                  this.error_component.show();
+                                  setTimeout(function () {
+                                    _this4.error_component.hide();
+                                  }, 3000);
+
+                                case 8:
+                                case "end":
+                                  return _context3.stop();
+                              }
+                            }
+                          }, _callee3, this);
+                        }));
                       }); // this.ordersService.validateOrderByCode(code)
                       //   .subscribe(async (res: any) => {
                       //     if (res) {
@@ -656,10 +683,10 @@
 
                     case 20:
                     case "end":
-                      return _context3.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee3, this);
+              }, _callee4, this);
             }));
           }
         }]);
@@ -1076,24 +1103,24 @@
         }, {
           key: "show",
           value: function show() {
-            var _this4 = this;
+            var _this5 = this;
 
             var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
             var text = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
             this.text = text || this.text;
             setTimeout(function () {
-              _this4.isShow = true;
+              _this5.isShow = true;
             }, time || 0);
           }
         }, {
           key: "hide",
           value: function hide() {
-            var _this5 = this;
+            var _this6 = this;
 
             var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
             setTimeout(function () {
-              _this5.isShow = false;
-              _this5.text = '';
+              _this6.isShow = false;
+              _this6.text = '';
             }, time || 0);
           }
         }]);
@@ -1388,28 +1415,28 @@
         }, {
           key: "show",
           value: function show() {
-            var _this6 = this;
+            var _this7 = this;
 
             var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
             setTimeout(function () {
-              _this6.isShow = true;
+              _this7.isShow = true;
 
-              if (_this6.options.cashback) {
+              if (_this7.options.cashback) {
                 confetti.start();
                 setTimeout(function () {
                   confetti.stop();
-                }, _this6.options.cashback.confetti.duration || 500);
+                }, _this7.options.cashback.confetti.duration || 500);
               }
             }, time || 0);
           }
         }, {
           key: "hide",
           value: function hide() {
-            var _this7 = this;
+            var _this8 = this;
 
             var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
             setTimeout(function () {
-              _this7.isShow = false;
+              _this8.isShow = false;
               confetti.stop();
             }, time || 0);
           }
@@ -2909,7 +2936,7 @@
         }, {
           key: "networkLogin",
           value: function networkLogin() {
-            var _this8 = this;
+            var _this9 = this;
 
             var body = {
               username: _global__WEBPACK_IMPORTED_MODULE_2__["Global"].CREDENTIALS.username,
@@ -2918,9 +2945,9 @@
               access_token: null
             };
             return this.http.post(_global__WEBPACK_IMPORTED_MODULE_2__["Global"].ENDPOINTS.USERS + "/login", body).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (x) {
-              _this8.setToken(x.token);
+              _this9.setToken(x.token);
 
-              _this8.setIdentity(x.user);
+              _this9.setIdentity(x.user);
 
               return x;
             }));
@@ -3133,7 +3160,7 @@
         }, {
           key: "validateOrder",
           value: function validateOrder(order) {
-            var _this9 = this;
+            var _this10 = this;
 
             return this.http.put(_global__WEBPACK_IMPORTED_MODULE_3__["Global"].ENDPOINTS.ORDERS + "/orders/" + order.id + "?updateFields=validated&includes=event", {
               validated: new Date()
@@ -3141,29 +3168,29 @@
               //FileManager.newLineAppendTo(Electron.getGlobal('__dirname') + `/${order.fk_event}/orders/validations.txt`, res.id).then(res => { }, )
               return res;
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (x) {
-              return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this9, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-                return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this10, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+                return regeneratorRuntime.wrap(function _callee5$(_context5) {
                   while (1) {
-                    switch (_context4.prev = _context4.next) {
+                    switch (_context5.prev = _context5.next) {
                       case 0:
-                        _context4.prev = 0;
-                        _context4.next = 6;
+                        _context5.prev = 0;
+                        _context5.next = 6;
                         break;
 
                       case 3:
-                        _context4.prev = 3;
-                        _context4.t0 = _context4["catch"](0);
-                        return _context4.abrupt("return", rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"]["throw"](_context4.t0));
+                        _context5.prev = 3;
+                        _context5.t0 = _context5["catch"](0);
+                        return _context5.abrupt("return", rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"]["throw"](_context5.t0));
 
                       case 6:
-                        return _context4.abrupt("return", order);
+                        return _context5.abrupt("return", order);
 
                       case 7:
                       case "end":
-                        return _context4.stop();
+                        return _context5.stop();
                     }
                   }
-                }, _callee4, null, [[0, 3]]);
+                }, _callee5, null, [[0, 3]]);
               }));
             }));
           }
@@ -3268,12 +3295,12 @@
         _createClass(PrinterService, [{
           key: "printOrder",
           value: function printOrder(order) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var i18nDatePipe, currencySymbolPipe, current, total, _iterator, _step, r, tickets, _iterator2, _step2, _r, i, ticket;
 
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
                       i18nDatePipe = new _pipes_i18n_date_pipe__WEBPACK_IMPORTED_MODULE_5__["I18nDatePipe"](this.translate);
                       currencySymbolPipe = new _pipes_currency_symbol_pipe__WEBPACK_IMPORTED_MODULE_4__["CurrencySymbolPipe"]();
@@ -3312,12 +3339,14 @@
                             ticket = {
                               date: i18nDatePipe.transform(order.event.from, 'EEE dd MMM'),
                               location: order.event.location,
+                              event_title: order.event.title,
                               product_name: _r.name,
                               price: _r.price / Math.pow(10, _pipes_currency_symbol_pipe__WEBPACK_IMPORTED_MODULE_4__["CURRENCY"][(order.movement.currency || 'none').toUpperCase()].decimal_digits || 2),
                               currency: currencySymbolPipe.transform(order.movement.currency) || '€',
-                              printed: i18nDatePipe.transform(order.created, "'".concat(this.translate.instant("Printer.bought_at"), "' HH:mm")),
+                              printed: i18nDatePipe.transform(order.created, "'".concat(this.translate.instant("Printer.bought_at"), "'dd/MM/YY HH:mm")),
                               watermark: order.watermark || "AddoAddoAddoAddo",
-                              rotateWatermark: true
+                              rotateWatermark: true,
+                              info: "Voucher valido per il ritiro al bancone. Recati dal barman per ordinare l'articolo acquistato. Coupon valido fino al ".concat(i18nDatePipe.transform(order.event.to, 'dd/MM/YY \'alle\' HH:mm'), ". Una volta stampato il vaucher non potr\xE0 essere pi\xF9 rimborsato.")
                             };
                             tickets.push({
                               ticket: ticket,
@@ -3331,35 +3360,13 @@
                         _iterator2.f();
                       }
 
-                      _context5.next = 12;
+                      _context6.next = 12;
                       return this.http.post("".concat(_global__WEBPACK_IMPORTED_MODULE_6__["Global"].ENDPOINTS.PRINTER, "/tickets/print"), tickets).toPromise();
 
                     case 12:
-                      return _context5.abrupt("return", _context5.sent);
-
-                    case 13:
-                    case "end":
-                      return _context5.stop();
-                  }
-                }
-              }, _callee5, this);
-            }));
-          }
-        }, {
-          key: "checkPrinterStatus",
-          value: function checkPrinterStatus() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-              return regeneratorRuntime.wrap(function _callee6$(_context6) {
-                while (1) {
-                  switch (_context6.prev = _context6.next) {
-                    case 0:
-                      _context6.next = 2;
-                      return this.http.get("".concat(_global__WEBPACK_IMPORTED_MODULE_6__["Global"].ENDPOINTS.PRINTER, "/status")).toPromise();
-
-                    case 2:
                       return _context6.abrupt("return", _context6.sent);
 
-                    case 3:
+                    case 13:
                     case "end":
                       return _context6.stop();
                   }
@@ -3368,29 +3375,51 @@
             }));
           }
         }, {
-          key: "canPrint",
-          value: function canPrint() {
+          key: "checkPrinterStatus",
+          value: function checkPrinterStatus() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-              var check_status;
               return regeneratorRuntime.wrap(function _callee7$(_context7) {
                 while (1) {
                   switch (_context7.prev = _context7.next) {
                     case 0:
                       _context7.next = 2;
-                      return this.checkPrinterStatus();
+                      return this.http.get("".concat(_global__WEBPACK_IMPORTED_MODULE_6__["Global"].ENDPOINTS.PRINTER, "/status")).toPromise();
 
                     case 2:
-                      check_status = _context7.sent;
-                      return _context7.abrupt("return", check_status.status.filter(function (cs) {
-                        return cs != PrinterErrorStatus.DRAWER_OPENED && cs != PrinterErrorStatus.PAPER_TAKEOUT;
-                      }).length == 0);
+                      return _context7.abrupt("return", _context7.sent);
 
-                    case 4:
+                    case 3:
                     case "end":
                       return _context7.stop();
                   }
                 }
               }, _callee7, this);
+            }));
+          }
+        }, {
+          key: "canPrint",
+          value: function canPrint() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+              var check_status;
+              return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                while (1) {
+                  switch (_context8.prev = _context8.next) {
+                    case 0:
+                      _context8.next = 2;
+                      return this.checkPrinterStatus();
+
+                    case 2:
+                      check_status = _context8.sent;
+                      return _context8.abrupt("return", check_status.status.filter(function (cs) {
+                        return cs != PrinterErrorStatus.DRAWER_OPENED && cs != PrinterErrorStatus.PAPER_TAKEOUT;
+                      }).length == 0);
+
+                    case 4:
+                    case "end":
+                      return _context8.stop();
+                  }
+                }
+              }, _callee8, this);
             }));
           }
         }]);
@@ -3525,7 +3554,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! /home/addo/addo/addo.hyper-tech/client/src/main.ts */
+      /*! /home/addo/addo-totem-repository/client/src/main.ts */
       "./src/main.ts");
       /***/
     }
