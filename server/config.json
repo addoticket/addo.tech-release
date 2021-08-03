@@ -13,5 +13,8 @@
     },
     "electron": {
         "path": "/electron"
+    },
+    "printer": {
+        "path": "/dev/usb/lp1"
     }
 }

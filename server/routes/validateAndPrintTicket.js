@@ -47,6 +47,8 @@ var global_1 = require("../global");
 var axios_1 = __importDefault(require("axios"));
 var currency_symbol_pipe_1 = require("../utils/currency-symbol.pipe");
 var __1 = require("..");
+var printer_alignment_1 = require("@addo/addo-printer/lib/core/printer-alignment");
+var autoreplyprint_1 = require("@addo/addo-printer/lib/autoreplyprint");
 exports.validateAndPrintTickets = new common_api_1.ExpressJsMicroservice({ method: 'post', route: '/orders/:id/validate' }, function (http) { return __awaiter(void 0, void 0, void 0, function () {
     var results, update, url, result, order, currencySymbolPipe, _i, _a, r, i, ticket, result_1, error_1;
     return __generator(this, function (_b) {
@@ -80,19 +82,22 @@ exports.validateAndPrintTickets = new common_api_1.ExpressJsMicroservice({ metho
                 ticket = {
                     date: moment_1.default(order.event.from).format('ddd DD MMM'),
                     location: order.event.location,
+                    event_title: order.event.title,
                     product_name: r.name,
                     price: r.price / Math.pow(10, currency_symbol_pipe_1.CURRENCY[(order.movement.currency || 'none').toUpperCase()].decimal_digits || 2),
-                    currency: currencySymbolPipe.transform(order.movement.currency) || '€',
-                    printed: __1.TRANSLATE[http.headers.lang].Printer.bought_at + " " + moment_1.default(order.created).format("HH:mm"),
+                    //currency: currencySymbolPipe.transform(order.movement.currency) || '€',
+                    currency: '€',
+                    printed: __1.TRANSLATE[http.headers.lang].Printer.bought_at + " " + moment_1.default(order.created).format("DD/MM/YY HH:mm"),
                     watermark: order.watermark || "AddoAddoAddoAddo",
-                    rotateWatermark: true
+                    rotateWatermark: order.rotateWatermark || true,
+                    info: "Voucher valido per il ritiro al bancone. Recati dal barman per ordinare l'articolo acquistato. Coupon valido fino al " + moment_1.default(order.event.to).format('DD/MM/YY [alle] HH:mm') + ". Una volta stampato il voucher non potr\u00E0 essere pi\u00F9 rimborsato. Riceverai la ricevuta fiscale via email."
                 };
                 ticket.date = string_utils_1.capitalize(ticket.date);
                 ticket.watermark = ticket.watermark.substr(0, ticket.rotateWatermark ? 16 : 24);
                 ticket.location = ticket.location.substr(0, 24);
                 ticket.product_name = ticket.product_name.substr(0, 24 - (1 + ticket.currency.length + ticket.price.toString().length));
                 ticket.printed = ticket.printed.substr(0, 24);
-                return [4 /*yield*/, global_1.Global.printer.printTicket(ticket, true)];
+                return [4 /*yield*/, printTicket(ticket, true)];
             case 5:
                 result_1 = _b.sent();
                 results.push(result_1);
@@ -115,6 +120,11 @@ exports.validateAndPrintTickets = new common_api_1.ExpressJsMicroservice({ metho
                 return [2 /*return*/, Promise.resolve(new common_api_1.Response({ results: results, update: update, order: order }, 200))];
             case 10:
                 error_1 = _b.sent();
+                console.error(error_1);
+                console.log(error_1);
+                if (error_1.response) {
+                    return [2 /*return*/, Promise.reject(new common_api_1.Response(error_1.response.data, error_1.response.status))];
+                }
                 error_1.printed = results;
                 return [2 /*return*/, Promise.reject(error_1)];
             case 11: return [2 /*return*/];
@@ -132,5 +142,57 @@ function updatePrintedQta(id, update) {
                     return [2 /*return*/, result.data];
             }
         });
+    });
+}
+function printTicket(ticket, clear) {
+    if (clear === void 0) { clear = false; }
+    var PRINTER = global_1.Global.printer;
+    return new Promise(function (resolve, reject) {
+        try {
+            var status_1 = [];
+            status_1.push(autoreplyprint_1.autoreplyprint.CP_Pos_SetMultiByteEncoding(PRINTER.handle, 1));
+            status_1.push(PRINTER.setPrintAlignment(printer_alignment_1.PrinterAlignment.center));
+            status_1.push(PRINTER.printText(ticket.date));
+            status_1.push(PRINTER.feedLine(1));
+            status_1.push(autoreplyprint_1.autoreplyprint.CP_Pos_SetTextScale(PRINTER.handle, 1, 1));
+            status_1.push(PRINTER.printText(ticket.location));
+            status_1.push(autoreplyprint_1.autoreplyprint.CP_Pos_SetTextScale(PRINTER.handle, 0, 0));
+            status_1.push(PRINTER.feedLine(1));
+            status_1.push(PRINTER.printText(ticket.event_title));
+            status_1.push(PRINTER.feedLine(1));
+            status_1.push(PRINTER.feedLine(1));
+            status_1.push(autoreplyprint_1.autoreplyprint.CP_Pos_SetTextScale(PRINTER.handle, 1, 1));
+            status_1.push(PRINTER.printText("" + ticket.product_name));
+            status_1.push(PRINTER.feedLine(1));
+            status_1.push(PRINTER.printText("" + (ticket.price ? ticket.price.toFixed(2) : ' - ') + ticket.currency));
+            status_1.push(PRINTER.feedLine(2));
+            status_1.push(autoreplyprint_1.autoreplyprint.CP_Pos_SetTextScale(PRINTER.handle, 0, 0));
+            status_1.push(autoreplyprint_1.autoreplyprint.CP_Pos_SetTextRotate(PRINTER.handle, ticket.rotateWatermark ? 1 : 0));
+            status_1.push(PRINTER.printText(ticket.watermark));
+            status_1.push(PRINTER.feedLine(1));
+            status_1.push(autoreplyprint_1.autoreplyprint.CP_Pos_SetTextRotate(PRINTER.handle, 0));
+            status_1.push(PRINTER.printText(ticket.printed));
+            status_1.push(PRINTER.feedLine(2));
+            status_1.push(PRINTER.printText(ticket.info));
+            status_1.push(PRINTER.feedLine(2));
+            status_1.push(PRINTER.cutPaper());
+            if (clear) {
+                status_1.push(autoreplyprint_1.autoreplyprint.CP_Printer_ClearPrinterBuffer(PRINTER.handle));
+                status_1.push(PRINTER.clear());
+            }
+            else {
+                status_1.push('-');
+                status_1.push('-');
+            }
+            var result = { status: status_1.join(''), code: "_NO_PRINTER_CHECK", };
+            // if (lib.CP_Pos_QueryPrintResult(PRINTER.handle, 1, 30000)) {
+            //     result = PRINTER.getPrinterInfo()
+            //     console.log(result);
+            // }
+            resolve(result);
+        }
+        catch (error) {
+            reject(error);
+        }
     });
 }
