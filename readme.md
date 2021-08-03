@@ -7,14 +7,14 @@
     sudo apt install curl unclutter openssh-server
     sudo systemctl status ssh
     ```
-2. Install **NodeJS**
-    ```
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-    sudo apt install nodejs
-    ```
-3. Install **NPM**
+2.  Install **NPM**
     ```
     sudo apt install npm
+    ```
+3. Install **NodeJS**
+    ```
+    sudo npm i n
+    sudo n install 10.24.1
     ```
 4. Install **Git**
     ```
@@ -55,8 +55,9 @@ sudo apt update -y
 sudo apt install curl unclutter openssh-server -y
 sudo systemctl status ssh
 sudo ufw allow ssh
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install npm
+sudo npm i n
+sudo n install 10.24.1
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 sudo apt install nodejs git git-lfs -y
 sudo git lfs clone https://github.com/addoeventi/addo.tech-release.git /home/addo/addo-totem
