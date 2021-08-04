@@ -3,7 +3,7 @@ sudo apt install curl unclutter openssh-server -y
 sudo systemctl status ssh
 sudo ufw allow ssh
 sudo apt install npm
-sudo npm i n
+sudo npm i n -g
 sudo n install 10.24.1
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 sudo apt install nodejs git git-lfs -y
